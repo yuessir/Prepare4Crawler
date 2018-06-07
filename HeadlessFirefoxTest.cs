@@ -7,10 +7,13 @@ using OpenQA.Selenium.Remote;
 
 namespace SeleniumPrepare4Crawler
 {
+    /// <summary>
+    /// Class HeadlessFirefoxTest.
+    /// </summary>
     [TestClass]
     public class HeadlessFirefoxTest
     {
-       
+
 
         /// <summary>
         /// Tests the flip automatic chat.
@@ -19,7 +22,7 @@ namespace SeleniumPrepare4Crawler
         public void TestHeadlessFirefox()
         {
             IWebDriver webDriver = CreateEdgeDriver();
-            
+
             webDriver.Navigate().GoToUrl("https://fleep.io/chat");
             webDriver.FindElement(By.XPath("//input[@placeholder='Username or email address']")).SendKeys("account");
             webDriver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("pwd");
@@ -52,11 +55,15 @@ namespace SeleniumPrepare4Crawler
             return new FirefoxDriver(service, option, TimeSpan.FromSeconds(40));
 
         }
+        /// <summary>
+        /// Creates the edge driver.
+        /// </summary>
+        /// <returns>IWebDriver.</returns>
         private static IWebDriver CreateEdgeDriver()
         {
 
             var service = EdgeDriverService.CreateDefaultService();
-            //option.("-headless"); //https://github.com/SeleniumHQ/selenium/issues/5984
+            //option.("-headless"); //lack of the feature ref: https://github.com/SeleniumHQ/selenium/issues/5984
 
             return new EdgeDriver(service);
 
