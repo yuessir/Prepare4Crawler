@@ -68,11 +68,11 @@ namespace SeleniumPrepare4Crawler
             webDriver.FindElement(By.XPath("//button[contains(text(), 'SIGN IN')]")).Click();
 
             //System.Threading.Thread.Sleep(9000);// the waiting for a threading time is not ideal
-            //webDriver.FindElement(By.XPath("//div[contains(text(),'微軟mvp讀書會')]")).Click();
+            //webDriver.FindElement(By.XPath("//div[contains(text(),'讀書會')]")).Click();
             //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-
-            var elem = FindElement(webDriver,By.XPath("//div[contains(text(),'!華陰街阿婆麵攤好吃')]"),10);
+            string channelName = "讀書會";
+            var elem = FindElement(webDriver,By.XPath($"//div[contains(text(),'{channelName}')]"),10);
              ((IJavaScriptExecutor)webDriver).ExecuteScript("arguments[0].click();", elem);
 
              elem = webDriver.FindElement(By.XPath("//textarea[@placeholder='Type your message']"));
@@ -100,14 +100,14 @@ namespace SeleniumPrepare4Crawler
         /// <param name="timeoutInSeconds">The timeout in seconds.</param>
         /// <returns>IWebElement.</returns>
         public IWebElement FindElement( IWebDriver driver, By by, int timeoutInSeconds)
+        {
+            if (timeoutInSeconds > 0)
             {
-                if (timeoutInSeconds > 0)
-                {
-                    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                    return wait.Until(drv => drv.FindElement(by));
-                }
-                return driver.FindElement(by);
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                return wait.Until(drv => drv.FindElement(by));
             }
+            return driver.FindElement(by);
+        }
 
     }
 }
